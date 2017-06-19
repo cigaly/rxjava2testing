@@ -13,7 +13,7 @@ public class TestSubscriber extends DisposableObserver<Long> {
 
     @Override
     public void onNext(Long aLong) {
-        System.out.println("Subscriber[" + name + "] on next value " + aLong);
+        System.out.println("Subscriber[" + name + "] running in thread " + Thread.currentThread().getName() + " on next value " + aLong);
     }
 
     @Override
