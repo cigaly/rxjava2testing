@@ -1,6 +1,5 @@
 package rxtest;
 
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.observers.DisposableObserver;
 
 public class TestSubscriber extends DisposableObserver<Long> {
