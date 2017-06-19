@@ -7,17 +7,20 @@ import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class TestPublisher implements Publisher<Long>, MyPublisher<Long> {
 
-    private final ThreadPoolExecutor executor;
+    //private final ThreadPoolExecutor executor;
+    private final Executor executor;
 
     private final List<Subscriber<? super Long>> subscribers = new ArrayList<>();
 
     public TestPublisher() {
-        this.executor = new ThreadPoolExecutor(2, 5, 1, SECONDS, new LinkedBlockingQueue<>());
+        //this.executor = new ThreadPoolExecutor(2, 5, 1, SECONDS, new LinkedBlockingQueue<>());
+        this.executor = r -> r.run();
     }
 
     private void publishToSubscriber(Subscriber<? super Long> subscriber, Long value) {
@@ -45,7 +48,7 @@ public class TestPublisher implements Publisher<Long>, MyPublisher<Long> {
         for (Subscriber<? super Long> subscriber : subscribers) {
             executor.execute(subscriber::onComplete);
         }
-        executor.shutdown();
+        /*executor.shutdown();*/
     }
 
 }
